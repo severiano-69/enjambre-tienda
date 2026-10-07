@@ -67,8 +67,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN DIRECTA INTERNA] Disparando propuesta a: {email}", flush=True)
 
-        # 🚀 EMBOSCADA TOTAL A NIVEL DE RED: Conectamos directo al Host seguro de la API v3 de Brevo
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 CORRECCIÓN DEFINITIVA DE HOST: Conexión HTTPS directa y limpia a la central técnica de Brevo
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -85,12 +85,11 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
             "htmlContent": html_content
         }
 
-        # Forzamos la petición HTTP pura saltándonos cualquier intermediario
+        # Lanzamos la petición HTTP pura directo al endpoint técnico
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         response = conn.getresponse()
         data = response.read().decode("utf-8")
         
-        # ✅ CORRECCIÓN QUIRÚRGICA APLICADA AQUÍ: Validamos código 201 oficial de Brevo
         if response.status == 201:
             emails_exito += 1
             print(f"✅ [TÚNEL ABIERTO] ¡Éxito absoluto en Brevo! Correo enviado a: {email}", flush=True)
