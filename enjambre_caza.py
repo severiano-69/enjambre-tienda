@@ -4,12 +4,10 @@ import sys
 import random
 import threading
 import json
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import http.client
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Sistema SMTP Mixto Blindado Activo", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Pura Definitiva Activa", flush=True)
 
 app = Flask(__name__)
 
@@ -54,44 +52,57 @@ def home():
 @app.route('/ejecutar')
 def forzar_ciclo():
     threading.Thread(target=ejecutar_un_ciclo_cibernetico).start()
-    return jsonify({"status": "ciclo_forzado_sistema_smtp"}), 200
+    return jsonify({"status": "ciclo_forzado_malla_api"}), 200
 
 def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
     global emails_exito, emails_failed
     try:
-        smtp_server = "smtp-brevo.com"
-        smtp_port = 587
-        
-        # Credenciales de inicio de sesión SMTP (Tu cuenta raíz)
-        smtp_user = "severianobenitez@hotmail.com"  
-        smtp_password = os.getenv("BREVO_API_KEY")  
-        
-        # Datos de salida oficiales y visibles
+        api_key = os.getenv("BREVO_API_KEY")
         sender_email = "oficina@enjambresaas.online"
         sender_name = "Enjambre SaaS"
-
-        print(f"⚡ [CONEXIÓN SMTP] Autenticando canal para: {email}", flush=True)
-
-        msg = MIMEMultipart()
-        msg['From'] = f"{sender_name} <{sender_email}>"
-        msg['To'] = email
-        msg['Subject'] = f"Solucion urgente para {problema} en tu {sector}"
-
-        html_content = f"<p>Hola,</p><p>Detectamos que has registrado recientemente la infraestructura digital de tu marca. Analizando los protocolos estandar de despliegue, prevemos riesgos criticos con <strong>{problema}</strong>.</p><p>Implementamos una Malla Blindada con IA para asegurar tu entorno por <strong>{precio} al mes (pago adelantado)</strong>.</p><p>Puedes activar tu protección y revisar los entregables de forma segura en nuestra pasarela aquí:</p><p><a href='{enlace}' style='background:#6772e5;color:#fff;padding:12px 20px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:bold;'>Activar Malla Blindada (Stripe Checkout)</a></p><p><em>Nota: El soporte 24/7 y la infraestructura en la nube inician tras completarse el pago seguro. Sin versiones de prueba.</em></p>"
-        msg.attach(MIMEText(html_content, 'html'))
-
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(smtp_user, smtp_password)
-        server.sendmail(sender_email, email, msg.as_string())
-        server.quit()
-
-        emails_exito += 1
-        print(f"✅ [TÚNEL ABIERTO SMTP] ¡Éxito absoluto! Correo enviado e inyectado a: {email}", flush=True)
         
+        if not api_key:
+            print("[⚠️] Error Crítico: Falta BREVO_API_KEY en Render.", flush=True)
+            emails_failed += 1
+            return
+
+        print(f"⚡ [CONEXIÓN API] Enviando propuesta por puerto web a: {email}", flush=True)
+
+        # Conexión limpia y directa por HTTPS (Puerto 443 abierto en Render)
+        conn = http.client.HTTPSConnection("://brevo.com")
+        
+        headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "api-key": api_key
+        }
+        
+        html_content = f"<p>Hola,</p><p>Detectamos que has registrado recientemente la infraestructura digital de tu marca. Analizando los protocolos estandar de despliegue, prevemos riesgos criticos con <strong>{problema}</strong>.</p><p>Implementamos una Malla Blindada con IA para asegurar tu entorno por <strong>{precio} al mes (pago adelantado)</strong>.</p><p>Puedes activar tu protección y revisar los entregables de forma segura en nuestra pasarela aquí:</p><p><a href='{enlace}' style='background:#6772e5;color:#fff;padding:12px 20px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:bold;'>Activar Malla Blindada (Stripe Checkout)</a></p><p><em>Nota: El soporte 24/7 y la infraestructura en la nube inician tras completarse el pago seguro. Sin versions de prueba.</em></p>"
+        
+        payload = {
+            "sender": {"name": sender_name, "email": sender_email},
+            "to": [{"email": email}],
+            "subject": f"Solucion urgente para {problema} en tu {sector}",
+            "htmlContent": html_content
+        }
+
+        conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
+        
+        # Lectura de respuesta limpia y directa
+        response = conn.getcall = response = conn.getresponse()
+        data = response.read().decode("utf-8")
+        
+        if response.status == 201:
+            emails_exito += 1
+            print(f"✅ [API ÉXITO] ¡Túnel abierto en Brevo! Correo entregado a: {email}", flush=True)
+        else:
+            emails_failed += 1
+            print(f"❌ [API RECHAZO] Código {response.status} de la central de Brevo: {data}", flush=True)
+        conn.close()
+            
     except Exception as e:
         emails_failed += 1
-        print(f"❌ [FALLA SMTP] No se pudo enviar el correo a {email}: {e}", flush=True)
+        print(f"❌ [FALLA TOTAL DE RED] Error en conexión pura a {email}: {e}", flush=True)
 
 def ejecutar_un_ciclo_cibernetico():
     global busquedas_exitosas, busquedas_fallidas, leads_cazados
@@ -112,7 +123,6 @@ def ejecutar_un_ciclo_cibernetico():
         if email_objetivo not in correos_historico:
             correos_historico.add(email_objetivo)
             leads_cazados += 1
-            # 🚀 CORRECCIÓN: Variable corregida en español plano
             enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
             
     except Exception as e:
