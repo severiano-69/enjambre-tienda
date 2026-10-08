@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Sistema SMTP Nativo Corporativo Activo", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Sistema SMTP Mixto Blindado Activo", flush=True)
 
 app = Flask(__name__)
 
@@ -62,17 +62,13 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         smtp_server = "smtp-brevo.com"
         smtp_port = 587
         
-        # 🚀 AL LÍO: Forzamos la salida e inicio de sesión bajo el dominio verificado
+        # 🚀 REPARACIÓN ABSOLUTA DE CREDENCIALES
+        smtp_user = "severianobenitez@hotmail.com"  # Tu cuenta real con la que se creó la API Key
+        smtp_password = os.getenv("BREVO_API_KEY")  # La contraseña del relé es tu clave API
+        
+        # El remitente que se muestra al cliente sigue siendo tu dominio profesional verificado
         sender_email = "oficina@enjambresaas.online"
-        sender_name = os.getenv("SENDER_NAME", "Enjambre SaaS")
-        
-        smtp_user = sender_email
-        smtp_password = os.getenv("BREVO_API_KEY")
-        
-        if not smtp_password:
-            print("[⚠️] Error Crítico: Falta BREVO_API_KEY en Render.", flush=True)
-            emails_failed += 1
-            return
+        sender_name = "Enjambre SaaS"
 
         print(f"⚡ [CONEXIÓN SMTP] Autenticando canal para: {email}", flush=True)
 
@@ -116,7 +112,7 @@ def ejecutar_un_ciclo_cibernetico():
         if email_objetivo not in correos_historico:
             correos_historico.add(email_objetivo)
             leads_cazados += 1
-            enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
+            enviar_propuesta_api_http(email_objetivo, sector, समस्या, precio, enlace_stripe)
             
     except Exception as e:
         busquedas_fallidas += 1
