@@ -7,7 +7,7 @@ import json
 import http.client
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Pura Definitiva Activa", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Blindada con Pausa Humana Activa", flush=True)
 
 app = Flask(__name__)
 
@@ -68,8 +68,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API] Enviando propuesta por puerto web a: {email}", flush=True)
 
-        # 🚀 HOST COMPLETAMENTE SANEADO: Dirección limpia de red para la conexión HTTPS
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -88,7 +87,6 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # 🚀 LÍNEA DE RESPUESTA TOTALMENTE LIMPIA Y SANADA
         response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
@@ -111,17 +109,13 @@ def ejecutar_un_ciclo_cibernetico():
         sector, precio, problema, cod_stripe = random.choice(sectores)
         enlace_stripe = f"https://stripe.com{cod_stripe}"
         
-        prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
-        ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
+        print(f"🔍 [RADAR INTERNO] Ejecutando escaneo de prueba directa...", flush=True)
         
-        print(f"🔍 [RADAR INTERNO] Detectado dominio: '{prefijo_limpio}{ciudad_limpia}.com'", flush=True)
-        
-        dominios_comunes = ["contacto", "info", "ventas", "oficina"]
-        email_objetivo = f"{random.choice(dominios_comunes)}@{prefijo_limpio}{ciudad_limpia}.com"
+        # 🚀 FORZAMOS TU PROPIO CORREO REAL PARA TENER LA CERTEZA ABSOLUTA EN TU MÓVIL
+        email_objetivo = "severianobenitez@hotmail.com"
         
         busquedas_exitosas += 1
         if email_objetivo not in correos_historico:
-            correos_historico.add(email_objetivo)
             leads_cazados += 1
             enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
             
@@ -134,7 +128,7 @@ def inicio_automatico():
     while True:
         print("🚀 [MALLA OPERATIVA 24/7] Escaneando registros...", flush=True)
         ejecutar_un_ciclo_cibernetico()
-        # 🚀 RElOJ DE SEGURIDAD: Pausa humana de 20 a 30 minutos para evitar que quemen la clave nueva
+        # Pausa humana de 20 a 30 minutos
         espera = random.randint(1200, 1800)
         print(f"⏳ [RELOJ INTERNO] Próxima patrulla en {espera} segundos...", flush=True)
         time.sleep(espera)
@@ -144,4 +138,3 @@ if __name__ == '__main__':
     puerto = int(os.environ.get("PORT", 10000))
     print(f"🌐 Servidor Flask arrancando en puerto {puerto}...", flush=True)
     app.run(host='0.0.0.0', port=puerto, debug=False, use_reloader=False)
-
