@@ -62,11 +62,11 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         smtp_server = "smtp-brevo.com"
         smtp_port = 587
         
-        # 🚀 REPARACIÓN ABSOLUTA DE CREDENCIALES
-        smtp_user = "severianobenitez@hotmail.com"  # Tu cuenta real con la que se creó la API Key
-        smtp_password = os.getenv("BREVO_API_KEY")  # La contraseña del relé es tu clave API
+        # Credenciales de inicio de sesión SMTP (Tu cuenta raíz)
+        smtp_user = "severianobenitez@hotmail.com"  
+        smtp_password = os.getenv("BREVO_API_KEY")  
         
-        # El remitente que se muestra al cliente sigue siendo tu dominio profesional verificado
+        # Datos de salida oficiales y visibles
         sender_email = "oficina@enjambresaas.online"
         sender_name = "Enjambre SaaS"
 
@@ -112,7 +112,8 @@ def ejecutar_un_ciclo_cibernetico():
         if email_objetivo not in correos_historico:
             correos_historico.add(email_objetivo)
             leads_cazados += 1
-            enviar_propuesta_api_http(email_objetivo, sector, समस्या, precio, enlace_stripe)
+            # 🚀 CORRECCIÓN: Variable corregida en español plano
+            enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
             
     except Exception as e:
         busquedas_fallidas += 1
