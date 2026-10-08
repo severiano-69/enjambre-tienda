@@ -7,7 +7,7 @@ import json
 import http.client
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Pura Definitiva Activa", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Blindada con Pausa Humana Activa", flush=True)
 
 app = Flask(__name__)
 
@@ -68,8 +68,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API] Enviando propuesta por puerto web a: {email}", flush=True)
 
-        # 🚀 HOST DE CONEXIÓN CORREGIDO Y LIMPIO SINFALLAS
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -88,7 +87,6 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # 🚀 LÍNEA DE RESPUESTA SANEADA COMPLETAMENTE
         response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
@@ -134,7 +132,8 @@ def inicio_automatico():
     while True:
         print("🚀 [MALLA OPERATIVA 24/7] Escaneando registros...", flush=True)
         ejecutar_un_ciclo_cibernetico()
-        espera = random.randint(780, 1020)
+        # 🚀 MODIFICACIÓN DEFINITIVA: Entre 20 y 30 minutos de pausa humana para evitar baneos
+        espera = random.randint(1200, 1800)
         print(f"⏳ [RELOJ INTERNO] Próxima patrulla en {espera} segundos...", flush=True)
         time.sleep(espera)
 
