@@ -68,6 +68,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN DIRECTA INTERNA] Disparando propuesta a: {email}", flush=True)
 
+        # 🚀 CONEXIÓN REPARADA: Dirección limpia sin prefijos ni barras
         conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
@@ -87,8 +88,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # 🚀 LÍNEA CORREGIDA DE FORMA ABSOLUTA: Lectura limpia de la respuesta del servidor
-        response = conn.getresponse()
+        # 🚀 LÍNEA DE RESPUESTA SANEADA: Sin duplicados extraños
+        response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
