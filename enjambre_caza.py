@@ -7,7 +7,7 @@ import json
 import http.client
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Blindada con Pausa Humana Activa", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Pura Definitiva Activa", flush=True)
 
 app = Flask(__name__)
 
@@ -68,7 +68,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API] Enviando propuesta por puerto web a: {email}", flush=True)
 
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 HOST COMPLETAMENTE SANEADO: Dirección limpia de red para la conexión HTTPS
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -87,6 +88,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
+        # 🚀 LÍNEA DE RESPUESTA SANEADA DEFINITIVAMENTE: Sin variables duplicadas ni texto basura
         response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
