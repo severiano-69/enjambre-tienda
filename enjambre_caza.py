@@ -58,7 +58,6 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
     global emails_exito, emails_failed
     try:
         api_key = os.getenv("BREVO_API_KEY")
-        # 🛠️ CORRECCIÓN: Leemos directamente las variables SENDER dinámicas de tu Render
         sender_email = os.getenv("SENDER_EMAIL", os.getenv("BREVO_USER", "severianobenitez@hotmail.com"))
         sender_name = os.getenv("SENDER_NAME", "Enjambre SaaS")
         
@@ -69,7 +68,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN DIRECTA INTERNA] Disparando propuesta a: {email}", flush=True)
 
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 CORRECCIÓN DEFINITIVA DE HOST: Dirección limpia sin esquemas ni barras
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -79,7 +79,6 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         
         html_content = f"<p>Hola,</p><p>Detectamos que has registrado recientemente la infraestructura digital de tu marca. Analizando los protocolos estandar de despliegue, prevemos riesgos criticos con <strong>{problema}</strong>.</p><p>Implementamos una Malla Blindada con IA para asegurar tu entorno por <strong>{precio} al mes (pago adelantado)</strong>.</p><p>Puedes activar tu protección y revisar los entregables de forma segura en nuestra pasarela aquí:</p><p><a href='{enlace}' style='background:#6772e5;color:#fff;padding:12px 20px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:bold;'>Activar Malla Blindada (Stripe Checkout)</a></p><p><em>Nota: El soporte 24/7 y la infraestructura en la nube inician tras completarse el pago seguro. Sin versiones de prueba.</em></p>"
         
-        # 🚀 CORRECCIÓN: Sincronización absoluta con el remitente verificado de Brevo
         payload = {
             "sender": {"name": sender_name, "email": sender_email},
             "to": [{"email": email}],
@@ -88,7 +87,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         }
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
-        response = conn.getcall = response = conn.getresponse()
+        response = conn.getcall = response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
