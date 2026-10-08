@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Volviendo a Sistema SMTP Nativo de Alta Velocidad", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Sistema SMTP Nativo Corporativo Activo", flush=True)
 
 app = Flask(__name__)
 
@@ -22,7 +22,7 @@ sectores = [
     ("negocio local", "97,00 €", "optimizacion de captacion digital", "dRm14o1yk9UB6Lk2SZ77O0r"),
     ("comercio premium", "147,00 €", "fidelizacion de clientes VIP", "7sYbJ2ccY3wd0mW3X377O0q"),
     ("plataforma financiera", "197,00 €", "integracion de activos digitales", "4gMdRab8UaYF3z851777O0p"),
-    ("agencia de servicios", "47,00 €", "posicionamiento web and SEO", "eVq7sM90M7MtedM9hn77O0o"),
+    ("agencia de servicios", "47,00 €", "posicionamiento web y SEO", "eVq7sM90M7MtedM9hn77O0o"),
     ("vendedor amazon", "127,00 €", "análisis de trends de mercado", "3cIeVe90M1o50mWeBH77O0n"),
     ("marca de e-commerce", "297,00 €", "inteligencia y optimizacion de anuncios", "cNifZi7WId6N2v479f77O0m"),
     ("establecimiento comercial", "87,00 €", "gestion de reputacion y resenas de Google", "dRm5kE1ykfeV7Po51777O0l"),
@@ -59,14 +59,20 @@ def forzar_ciclo():
 def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
     global emails_exito, emails_failed
     try:
-        # 🚀 CORRECCIÓN ABSOLUTA: Dirección del servidor limpia y pura de Brevo
         smtp_server = "smtp-brevo.com"
         smtp_port = 587
-        smtp_user = os.getenv("BREVO_USER", "severianobenitez@hotmail.com")
+        
+        # 🚀 AL LÍO: Forzamos la salida e inicio de sesión bajo el dominio verificado
+        sender_email = "oficina@enjambresaas.online"
+        sender_name = os.getenv("SENDER_NAME", "Enjambre SaaS")
+        
+        smtp_user = sender_email
         smtp_password = os.getenv("BREVO_API_KEY")
         
-        sender_email = os.getenv("SENDER_EMAIL", "oficina@enjambresaas.online")
-        sender_name = os.getenv("SENDER_NAME", "Enjambre SaaS")
+        if not smtp_password:
+            print("[⚠️] Error Crítico: Falta BREVO_API_KEY en Render.", flush=True)
+            emails_failed += 1
+            return
 
         print(f"⚡ [CONEXIÓN SMTP] Autenticando canal para: {email}", flush=True)
 
