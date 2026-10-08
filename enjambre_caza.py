@@ -58,7 +58,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
     global emails_exito, emails_failed
     try:
         api_key = os.getenv("BREVO_API_KEY")
-        sender_email = os.getenv("SENDER_EMAIL", os.getenv("BREVO_USER", "severianobenitez@hotmail.com"))
+        sender_email = os.getenv("SENDER_EMAIL", "oficina@enjambresaas.online")
         sender_name = os.getenv("SENDER_NAME", "Enjambre SaaS")
         
         if not api_key:
@@ -68,8 +68,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN DIRECTA INTERNA] Disparando propuesta a: {email}", flush=True)
 
-        # 🚀 CORRECCIÓN DEFINITIVA DE HOST: Dirección limpia sin esquemas ni barras
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -87,7 +86,9 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         }
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
-        response = conn.getcall = response = conn.getcall = response = conn.getresponse()
+        
+        # 🚀 REPARACIÓN DE LÍNEA: Respuesta limpia directa del servidor de Brevo
+        response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
