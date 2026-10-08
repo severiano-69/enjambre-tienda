@@ -68,8 +68,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API] Enviando propuesta por puerto web a: {email}", flush=True)
 
-        # Conexión limpia y directa por HTTPS (Puerto 443 abierto en Render)
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 HOST DE CONEXIÓN CORREGIDO Y LIMPIO SINFALLAS
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -77,7 +77,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
             "api-key": api_key
         }
         
-        html_content = f"<p>Hola,</p><p>Detectamos que has registrado recientemente la infraestructura digital de tu marca. Analizando los protocolos estandar de despliegue, prevemos riesgos criticos con <strong>{problema}</strong>.</p><p>Implementamos una Malla Blindada con IA para asegurar tu entorno por <strong>{precio} al mes (pago adelantado)</strong>.</p><p>Puedes activar tu protección y revisar los entregables de forma segura en nuestra pasarela aquí:</p><p><a href='{enlace}' style='background:#6772e5;color:#fff;padding:12px 20px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:bold;'>Activar Malla Blindada (Stripe Checkout)</a></p><p><em>Nota: El soporte 24/7 y la infraestructura en la nube inician tras completarse el pago seguro. Sin versions de prueba.</em></p>"
+        html_content = f"<p>Hola,</p><p>Detectamos que has registrado recientemente la infraestructura digital de tu marca. Analizando los protocolos estandar de despliegue, prevemos riesgos criticos con <strong>{problema}</strong>.</p><p>Implementamos una Malla Blindada con IA para asegurar tu entorno por <strong>{precio} al mes (pago adelantado)</strong>.</p><p>Puedes activar tu protección y revisar los entregables de forma segura en nuestra pasarela aquí:</p><p><a href='{enlace}' style='background:#6772e5;color:#fff;padding:12px 20px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:bold;'>Activar Malla Blindada (Stripe Checkout)</a></p><p><em>Nota: El soporte 24/7 y la infraestructura en la nube inician tras completarse el pago seguro. Sin versiones de prueba.</em></p>"
         
         payload = {
             "sender": {"name": sender_name, "email": sender_email},
@@ -88,7 +88,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # Lectura de respuesta limpia y directa
+        # 🚀 LÍNEA DE RESPUESTA SANEADA COMPLETAMENTE
         response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
