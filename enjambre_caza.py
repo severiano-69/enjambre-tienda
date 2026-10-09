@@ -11,24 +11,10 @@ print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Brevo Operativa Real - EN LA CALLE
 
 app = Flask(__name__)
 
-ciudades = ["Asuncion", "Madrid", "Barcelona", "New York", "Los Angeles", "Ciudad de Mexico", "Monterrey", "Bogota", "Medellin", "Sydney", "Melbourne", "Rome", "Milan", "Tokyo", "Osaka", "Singapore", "Seul", "Busan", "London", "Paris", "Berlin", "Frankfurt", "Amsterdam", "Zurich", "Miami", "San Francisco", "Toronto", "Sao Paulo", "Buenos Aires", "Santiago", "Lima", "Dubai", "Hong Kong", "Shanghai", "Bangkok", "Mumbai", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "Fort Worth", "Columbus", "Charlotte", "Indianapolis", "Seattle", "Denver", "Washington", "Boston", "El Paso", "Nashville", "Oklahoma City", "Las Vegas", "Portland", "Valencia", "Sevilla", "Zaragoza", "Malaga", "Murcia", "Palma de Mallorca", "Las Palmas", "Bilbao", "Guadalajara", "Puebla", "Tijuana", "Leon", "Juarez", "Zapopan", "Cali", "Barranquilla", "Cartagena", "Cucuta", "Guayaquil", "Quito", "Caracas", "Maracaibo", "Valencia Venezuela", "Montevideo", "La Paz", "Santa Cruz", "Manchester", "Birmingham", "Leeds", "Glasgow", "Munich", "Hamburg", "Cologne", "Stuttgart", "Lyon", "Marseille", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier"]
-
-sectores = [
-    ("tienda online", "19,00 €", "fugas de carritos abandonados", "fZuaEY1ykgiZedM0KR77O0u"),
-    ("restaurante", "24,00 €", "mesas vacías en días laborables", "14AdRaccY4Ah3z865b77O0t"),
-    ("clinica dental", "29,00 €", "perdida de posicionamiento local en mapas", "6oU14occY7Mt3z8gJP77O0s"),
-    ("negocio local", "97,00 €", "optimizacion de captacion digital", "dRm14o1yk9UB6Lk2SZ77O0r"),
-    ("comercio premium", "147,00 €", "fidelizacion de clientes VIP", "7sYbJ2ccY3wd0mW3X377O0q"),
-    ("plataforma financiera", "197,00 €", "integracion de activos digitales", "4gMdRab8UaYF3z851777O0p"),
-    ("agencia de servicios", "47,00 €", "posicionamiento web y SEO", "eVq7sM90M7MtedM9hn77O0o"),
-    ("vendedor amazon", "127,00 €", "análisis de trends de mercado", "3cIeVe90M1o50mWeBH77O0n"),
-    ("marca de e-commerce", "297,00 €", "inteligencia y optimizacion de anuncios", "cNifZi7WId6N2v479f77O0m"),
-    ("establecimiento comercial", "87,00 €", "gestion de reputacion y resenas de Google", "dRm5kE1ykfeV7Po51777O0l"),
-    ("gran empresa", "997,00 €", "estrategias de omnipresencia corporativa", "3cI4gAccY0k19Xw9hn77O0k"),
-    ("empresa tecnologica", "497,00 €", "auditoria de seguridad y cyber-shield", "14AeVe4Kwd6Nc5E1OV77O0j"),
-    ("corporacion", "49,00 €", "cumplimiento normativo e inteligencia artificial", "fZudRa90M4Ah4Dcalr77O0i"),
-    ("creador de contenido", "99,00 €", "conversion de catalogo a video vertical", "cNi28sdh22s9glU8dj77O0h"),
-    ("centro de atencion", "199,00 €", "cierre de ventas automatizado por WhatsApp", "fZu4gAfpagiZglU51777O0g")
+# 🎯 BASE DE DATOS DE CLIENTES REALES (Cambia estos correos por los verdaderos de tus objetivos)
+lista_leads_reales = [
+    {"email": "severianobenitez@hotmail.com", "sector": "comercio premium", "problema": "fidelizacion de clientes VIP", "cod_stripe": "7sYbJ2ccY3wd0mW3X377O0q", "precio": "147,00 €"},
+    {"email": "info@enjambresaas.online", "sector": "agencia de servicios", "problema": "posicionamiento web y SEO", "cod_stripe": "eVq7sM90M7MtedM9hn77O0o", "precio": "47,00 €"}
 ]
 
 busquedas_exitosas = 0
@@ -36,6 +22,7 @@ busquedas_fallidas = 0
 leads_cazados = 0
 emails_exito = 0
 emails_failed = 0
+indice_actual = 0
 
 @app.route('/')
 def home():
@@ -45,7 +32,8 @@ def home():
         "scans_fallidos": busquedas_fallidas, 
         "leads_reales_cazados": leads_cazados, 
         "emails_enviados_exito": emails_exito, 
-        "emails_failed": emails_failed
+        "emails_failed": emails_failed,
+        "proximo_indice_lista": indice_actual
     }), 200
 
 def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
@@ -62,8 +50,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 DIRECCIÓN LIMPIA SIN PROTOCOLOS DE RED CORRUPTOS
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -82,7 +69,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        response = conn.getcall = response = conn.getresponse()
+        response = conn.getcall = response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -98,34 +85,40 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         print(f"❌ [FALLA TOTAL DE RED] Error en conexión pura a {email}: {e}", flush=True)
 
 def bucle_automatico_infinito():
-    global busquedas_exitosas, busquedas_fallidas, leads_cazados
-    print("🚀 [MALLA AUTOMÁTICA] Bucle de patrulla en segundo plano iniciado.", flush=True)
+    global busquedas_exitosas, busquedas_fallidas, leads_cazados, indice_actual
+    print("🚀 [MALLA AUTOMÁTICA] Bucle de patrulla secuencial en segundo plano iniciado.", flush=True)
     
     time.sleep(10)
     
     while True:
         try:
-            ciudad = random.choice(ciudades)
-            sector, precio, problema, cod_stripe = random.choice(sectores)
-            enlace_stripe = f"https://stripe.com{cod_stripe}"
+            if not lista_leads_reales:
+                print("⚠️ [RADAR] La lista de leads está vacía. Esperando...", flush=True)
+                time.sleep(60)
+                continue
+                
+            # Coger el cliente actual secuencialmente
+            lead = lista_leads_reales[indice_actual]
+            email_objetivo = lead["email"]
+            sector = lead["sector"]
+            problema = lead["problema"]
+            precio = lead["precio"]
+            enlace_stripe = f"https://stripe.com{lead['cod_stripe']}"
             
-            prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
-            ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
-            
-            dominios_comunes = ["contacto", "info", "ventas", "oficina"]
-            email_objetivo = f"{random.choice(dominios_comunes)}@{prefijo_limpio}{ciudad_limpia}.com"
-            
-            print(f"🔍 [RADAR INTERNO] Detectado objetivo: {email_objetivo}", flush=True)
+            print(f"🔍 [RADAR INTERNO] Procesando objetivo real: {email_objetivo}", flush=True)
             
             busquedas_exitosas += 1
             leads_cazados += 1
+            
             enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
+            
+            # Avanzar al siguiente correo de la lista
+            indice_actual = (indice_actual + 1) % len(lista_leads_reales)
             
         except Exception as e:
             busquedas_fallidas += 1
             print(f"❌ [RADAR ERROR] Fallo en ciclo automático: {e}", flush=True)
         
-        # ⏱️ Pausa antianomalías de 900 segundos (15 minutos)
         print("⏳ [RELOJ INTERNO] Próxima patrulla en 900 segundos...", flush=True)
         time.sleep(900)
 
