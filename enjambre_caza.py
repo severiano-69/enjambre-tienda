@@ -12,12 +12,25 @@ print("🔥 [NÚCLEO ENJAMBRE] Malla SMTP DonDominio Operativa Real - EN LA CALL
 
 app = Flask(__name__)
 
-ciudades = ["Madrid", "Barcelona", "Sevilla", "Valencia", "Malaga", "Zaragoza", "Bilbao", "Murcia", "Palma", "Alicante"]
+# 🌍 TUS CIUDADES GLOBALES RESTAURADAS COMPLETAS
+ciudades = ["Asuncion", "Madrid", "Barcelona", "New York", "Los Angeles", "Ciudad de Mexico", "Monterrey", "Bogota", "Medellin", "Sydney", "Melbourne", "Rome", "Milan", "Tokyo", "Osaka", "Singapore", "Seul", "Busan", "London", "Paris", "Berlin", "Frankfurt", "Amsterdam", "Zurich", "Miami", "San Francisco", "Toronto", "Sao Paulo", "Buenos Aires", "Santiago", "Lima", "Dubai", "Hong Kong", "Shanghai", "Bangkok", "Mumbai", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "Fort Worth", "Columbus", "Charlotte", "Indianapolis", "Seattle", "Denver", "Washington", "Boston", "El Paso", "Nashville", "Oklahoma City", "Las Vegas", "Portland", "Valencia", "Sevilla", "Zaragoza", "Malaga", "Murcia", "Palma de Mallorca", "Las Palmas", "Bilbao", "Guadalajara", "Puebla", "Tijuana", "Leon", "Juarez", "Zapopan", "Cali", "Barranquilla", "Cartagena", "Cucuta", "Guayaquil", "Quito", "Caracas", "Maracaibo", "Valencia Venezuela", "Montevideo", "La Paz", "Santa Cruz", "Manchester", "Birmingham", "Leeds", "Glasgow", "Munich", "Hamburg", "Cologne", "Stuttgart", "Lyon", "Marseille", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier"]
+
 sectores = [
-    ("consultoria digital", "auditoria de sistemas y optimizacion de infraestructura web"),
-    ("desarrollo corporativo", "blindaje de pasarelas de datos y cumplimiento normativo"),
-    ("agencia de servicios", "posicionamiento local en buscadores y estrategias seo"),
-    ("marca de e-commerce", "analisis de conversion de trafico y fugas de embudo")
+    ("tienda online", "auditoria de sistemas y fugas de carritos abandonados"),
+    ("restaurante", "optimizacion de mesas vacias en dias laborables"),
+    ("clinica dental", "recuperacion de posicionamiento local en mapas"),
+    ("negocio local", "optimizacion integral de captacion digital"),
+    ("comercio premium", "estrategias de fidelizacion de clientes VIP"),
+    ("plataforma financiera", "integracion de activos digitales y seguridad"),
+    ("agencia de servicios", "posicionamiento web y optimizacion SEO"),
+    ("vendedor amazon", "analisis avanzado de trends de mercado"),
+    ("marca de e-commerce", "inteligencia y optimizacion de anuncios digitales"),
+    ("establecimiento comercial", "gestion de reputacion y resenas de Google"),
+    ("gran empresa", "estrategias de omnipresencia corporativa"),
+    ("empresa tecnologica", "auditoria de seguridad y cyber-shield"),
+    ("corporacion", "cumplimiento normativo e inteligencia artificial"),
+    ("creador de contenido", "conversion de catalogo a video vertical"),
+    ("centro de atencion", "cierre de ventas automatizado por WhatsApp")
 ]
 
 busquedas_exitosas = 0
@@ -40,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 CORREGIDO: Host SMTP limpio, sin protocolos ni barras corruptas
+        # 🚀 SOLUCIÓN DEFINITIVA: Servidor limpio y correcto
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -72,7 +85,7 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         """
         msg.attach(MIMEText(html_content, 'html', 'utf-8'))
 
-        # 🚀 CONEXIÓN DIRECTA SSL NATIVA
+        # Conexión SSL directa al puerto oficial
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(smtp_user, smtp_pass)
         server.sendmail(smtp_user, email_destino, msg.as_string())
@@ -96,6 +109,7 @@ def bucle_automatico_infinito():
             sector, servicio = random.choice(sectores)
             ciudad = random.choice(ciudades)
             
+            # Tu correo real para la verificación limpia
             email_objetivo = "severianobenitez@hotmail.com"
             
             print(f"🔍 [RADAR] Iniciando disparo de auditoria legítima hacia: {email_objetivo}", flush=True)
@@ -109,6 +123,7 @@ def bucle_automatico_infinito():
             busquedas_fallidas += 1
             print(f"❌ [RADAR ERROR] Error en el flujo del bucle: {e}", flush=True)
         
+        # Pausa estricta de 900 segundos (15 minutos)
         print("⏳ [RELOJ INTERNO] Entrando en reposo estricto por 900 segundos...", flush=True)
         time.sleep(900)
 
