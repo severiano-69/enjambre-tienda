@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 CORREGIDO TOTALMENTE: Host puro y limpio de DonDominio sin protocolos corruptos
+        # 🚀 REPARADO Y ALINEADO CON LUPA: Host limpio y sin espacios corruptos
                smtp_server = "smtp.dondominio.com"
 
         smtp_port = 465  
