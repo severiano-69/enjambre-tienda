@@ -68,8 +68,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 DIRECCIÓN PERFECTA: Host limpio sin protocolos ni barras corruptas
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 CORRECCIÓN ABSOLUTA: Host limpio directo de la API sin barras corruptas
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -88,8 +88,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # 🚀 LÍNEA DE RESPUESTA SANEADA AL 100%
-        response = conn.getresponse()
+        # Lectura de respuesta limpia directa del servidor de Brevo
+        response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -130,7 +130,7 @@ def inicio_automatico():
     while True:
         print("🚀 [MALLA OPERATIVA 24/7] Escaneando registros...", flush=True)
         ejecutar_un_ciclo_cibernetico()
-        # Pausa de seguridad humana (20 a 30 minutos)
+        # Pausa de seguridad humana de 20 a 30 minutos
         espera = random.randint(1200, 1800)
         print(f"⏳ [RELOJ INTERNO] Próxima patrulla en {espera} segundos...", flush=True)
         time.sleep(espera)
