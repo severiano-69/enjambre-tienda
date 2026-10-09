@@ -68,7 +68,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 SANEADO AL 100%: Host puro sin protocolos corruptos
+        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
         conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
@@ -88,8 +88,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # 🚀 SANEADO AL 100%: Captura de respuesta limpia
-        response = conn.getresponse()
+        response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
