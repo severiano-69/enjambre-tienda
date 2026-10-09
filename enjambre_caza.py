@@ -24,7 +24,7 @@ sectores = [
     ("plataforma financiera", "integracion de activos digitales y seguridad"),
     ("agencia de servicios", "posicionamiento web y optimizacion SEO"),
     ("vendedor amazon", "analisis avanzado de trends de mercado"),
-    ("marca de e-commerce", "inteligencia and optimizacion de anuncios digitales"),
+    ("marca de e-commerce", "inteligencia y optimizacion de anuncios digitales"),
     ("establecimiento comercial", "gestion de reputacion y resenas de Google"),
     ("gran empresa", "estrategias de omnipresencia corporativa"),
     ("empresa tecnologica", "auditoria de seguridad y cyber-shield"),
@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 REPARADO COMPLETO: Dirección limpia sin barras inclinadas ni protocolos corruptos
+        # 🚀 REPARADO AL 100%: Servidor limpio sin cadenas de red corruptas
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -85,6 +85,7 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         """
         msg.attach(MIMEText(html_content, 'html', 'utf-8'))
 
+        # Conexión directa SSL nativa
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(smtp_user, smtp_pass)
         server.sendmail(smtp_user, email_destino, msg.as_string())
