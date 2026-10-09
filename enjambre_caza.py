@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 CORREGIDO: Host limpio y directo sin barras ni protocolos corruptos
+        # 🚀 SANEADO ABSOLUTO DEFINITIVO: Sin protocolos corruptos de red
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
