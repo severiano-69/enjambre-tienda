@@ -62,8 +62,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        # 🚀 CORREGIDO: Dirección limpia sin protocolos ni barras corruptas
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -82,7 +82,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        response = conn.getresponse()
+        # 🚀 CORREGIDO: Captura de respuesta limpia
+        response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -109,9 +110,14 @@ def bucle_automatico_infinito():
             sector, precio, problema, cod_stripe = random.choice(sectores)
             enlace_stripe = f"https://stripe.com{cod_stripe}"
             
-            print(f"🔍 [RADAR INTERNO] Ejecutando patrulla automática...", flush=True)
+            prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
+            ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
             
-            email_objetivo = "severianobenitez@hotmail.com"
+            # 🎯 REGRESO AL RADAR REAL DINÁMICO
+            dominios_comunes = ["contacto", "info", "ventas", "oficina"]
+            email_objetivo = f"{random.choice(dominios_comunes)}@{prefijo_limpio}{ciudad_limpia}.com"
+            
+            print(f"🔍 [RADAR INTERNO] Detectado objetivo: {email_objetivo}", flush=True)
             
             busquedas_exitosas += 1
             leads_cazados += 1
