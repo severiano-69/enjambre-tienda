@@ -24,7 +24,7 @@ sectores = [
     ("plataforma financiera", "integracion de activos digitales y seguridad"),
     ("agencia de servicios", "posicionamiento web y optimizacion SEO"),
     ("vendedor amazon", "analisis avanzado de trends de mercado"),
-    ("marca de e-commerce", "inteligencia y optimizacion de anuncios digitales"),
+    ("marca de e-commerce", "inteligencia and optimizacion de anuncios digitales"),
     ("establecimiento comercial", "gestion de reputacion y resenas de Google"),
     ("gran empresa", "estrategias de omnipresencia corporativa"),
     ("empresa tecnologica", "auditoria de seguridad y cyber-shield"),
@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 CORREGIDO: Servidor limpio, sin protocolos ni barras corruptas
+        # 🚀 REPARADO COMPLETO: Dirección limpia sin barras inclinadas ni protocolos corruptos
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -85,7 +85,6 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         """
         msg.attach(MIMEText(html_content, 'html', 'utf-8'))
 
-        # Conexión nativa limpia por puerto SSL
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(smtp_user, smtp_pass)
         server.sendmail(smtp_user, email_destino, msg.as_string())
@@ -119,7 +118,7 @@ def bucle_automatico_infinito():
             enviar_propuesta_smtp_real(email_objetivo, sector, servicio)
             
         except Exception as e:
-            busquedas_failed = busquedas_fallidas + 1
+            busquedas_fallidas += 1
             print(f"❌ [RADAR ERROR] Error en el flujo del bucle: {e}", flush=True)
         
         print("⏳ [RELOJ INTERNO] Entrando en reposo estricto por 900 segundos...", flush=True)
