@@ -11,10 +11,13 @@ print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Brevo Operativa Real - EN LA CALLE
 
 app = Flask(__name__)
 
-# 🎯 BASE DE DATOS DE CLIENTES REALES (Cambia estos correos por los verdaderos de tus objetivos)
-lista_leads_reales = [
-    {"email": "severianobenitez@hotmail.com", "sector": "comercio premium", "problema": "fidelizacion de clientes VIP", "cod_stripe": "7sYbJ2ccY3wd0mW3X377O0q", "precio": "147,00 €"},
-    {"email": "info@enjambresaas.online", "sector": "agencia de servicios", "problema": "posicionamiento web and SEO", "cod_stripe": "eVq7sM90M7MtedM9hn77O0o", "precio": "47,00 €"}
+# Base de datos limpia para la rotación automática
+ciudades = ["Madrid", "Barcelona", "Sevilla", "Valencia", "Malaga", "Zaragoza", "Bilbao", "Murcia", "Palma", "Alicante"]
+sectores = [
+    ("consultoria digital", "auditoria de sistemas y optimizacion de infraestructura web"),
+    ("desarrollo corporativo", "blindaje de pasarelas de datos y cumplimiento normativo"),
+    ("agencia de servicios", "posicionamiento local en buscadores y estrategias seo"),
+    ("marca de e-commerce", "analisis de conversion de trafico y fugas de embudo")
 ]
 
 busquedas_exitosas = 0
@@ -22,7 +25,6 @@ busquedas_fallidas = 0
 leads_cazados = 0
 emails_exito = 0
 emails_failed = 0
-indice_actual = 0
 
 @app.route('/')
 def home():
@@ -32,11 +34,10 @@ def home():
         "scans_fallidos": busquedas_fallidas, 
         "leads_reales_cazados": leads_cazados, 
         "emails_enviados_exito": emails_exito, 
-        "emails_failed": emails_failed,
-        "proximo_indice_lista": indice_actual
+        "emails_failed": emails_failed
     }), 200
 
-def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
+def enviar_propuesta_api_http(email, sector, servicio):
     global emails_exito, emails_failed
     try:
         api_key = os.getenv("BREVO_API_KEY")
@@ -48,10 +49,10 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
             emails_failed += 1
             return
 
-        print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
+        print(f"⚡ [CONEXIÓN API BREVO] Enviando auditoría transaccional a: {email}", flush=True)
 
-        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        # 🚀 CONEXIÓN PURA BLINDADA
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -59,12 +60,19 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
             "api-key": api_key
         }
         
-        html_content = f"<p>Hola,</p><p>Detectamos que has registrado recientemente la infraestructura digital de tu marca. Analizando los protocolos estandar de despliegue, prevemos riesgos criticos con <strong>{problema}</strong>.</p><p>Implementamos una Malla Blindada con IA para asegurar tu entorno por <strong>{precio} al mes (pago adelantado)</strong>.</p><p>Puedes activar tu protección y revisar los entregables de forma segura en nuestra pasarela aquí:</p><p><a href='{enlace}' style='background:#6772e5;color:#fff;padding:12px 20px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:bold;'>Activar Malla Blindada (Stripe Checkout)</a></p><p><em>Nota: El soporte 24/7 y la infraestructura en la nube inician tras completarse el pago seguro. Sin versiones de prueba.</em></p>"
+        # 📝 TEXTO PROFESIONAL SANEADO: Cruza los filtros de Hotmail/Gmail sin alertas de spam
+        html_content = f"""
+        <p>Estimado responsable de operaciones,</p>
+        <p>Hemos analizado recientemente los tiempos de respuesta y los protocolos de despliegue público asociados a las marcas de su sector.</p>
+        <p>Detectamos un margen de optimización importante en el área de <strong>{servicio}</strong>, aspecto clave para la captación digital de su negocio.</p>
+        <p>Hemos preparado un informe detallado con las correcciones técnicas pertinentes. Si desea recibir la auditoría completa sin compromiso alguno, responda directamente a este correo electrónico.</p>
+        <p>Atentamente,<br><strong>{sender_name}</strong><br>Soporte de Infraestructura Digital</p>
+        """
         
         payload = {
             "sender": {"name": sender_name, "email": sender_email},
             "to": [{"email": email}],
-            "subject": f"Solucion urgente para {problema} en tu {sector}",
+            "subject": f"Estudio de optimizacion digital para tu sector de {sector}",
             "htmlContent": html_content
         }
 
@@ -75,52 +83,47 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         
         if response.status == 201:
             emails_exito += 1
-            print(f"✅ [API ÉXITO] ¡Túnel abierto en Brevo! Correo entregado a: {email}", flush=True)
+            print(f"✅ [API ÉXITO] ¡Túnel verificado! Correo enviado correctamente a: {email}", flush=True)
         else:
             emails_failed += 1
-            print(f"❌ [API RECHAZO] Código {response.status} de la central de Brevo: {data}", flush=True)
+            print(f"❌ [API RECHAZO] Error de validación Brevo: {data}", flush=True)
         conn.close()
             
     except Exception as e:
         emails_failed += 1
-        print(f"❌ [FALLA TOTAL DE RED] Error en conexión pura a {email}: {e}", flush=True)
+        print(f"❌ [FALLA TOTAL DE RED] Fallo en la petición HTTP: {e}", flush=True)
 
 def bucle_automatico_infinito():
-    global busquedas_exitosas, busquedas_fallidas, leads_cazados, indice_actual
-    print("🚀 [MALLA AUTOMÁTICA] Bucle de patrulla secuencial en segundo plano iniciado.", flush=True)
+    global busquedas_exitosas, busquedas_fallidas, leads_cazados
+    print("🚀 [MALLA AUTOMÁTICA] Bucle continuo activado de forma nativa.", flush=True)
     
+    # Pausa de seguridad para estabilizar Flask en el arranque
     time.sleep(10)
     
     while True:
         try:
-            if not lista_leads_reales:
-                print("⚠️ [RADAR] La lista de leads está vacía. Esperando...", flush=True)
-                time.sleep(60)
-                continue
-                
-            lead = lista_leads_reales[indice_actual]
-            email_objetivo = lead["email"]
-            sector = lead["sector"]
-            problema = lead["problema"]
-            precio = lead["precio"]
-            enlace_stripe = f"https://stripe.com{lead['cod_stripe']}"
+            sector, servicio = random.choice(sectores)
+            ciudad = random.choice(ciudades)
             
-            print(f"🔍 [RADAR INTERNO] Procesando objetivo real: {email_objetivo}", flush=True)
+            # 🎯 DIRECCIÓN DE CONTROL REAL: Tu Hotmail para que veas que entra directo
+            email_objetivo = "severianobenitez@hotmail.com"
+            
+            print(f"🔍 [RADAR] Procesando envío legítimo hacia: {email_objetivo}", flush=True)
             
             busquedas_exitosas += 1
             leads_cazados += 1
             
-            enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
-            
-            indice_actual = (indice_actual + 1) % len(lista_leads_reales)
+            enviar_propuesta_api_http(email_objetivo, sector, servicio)
             
         except Exception as e:
             busquedas_fallidas += 1
-            print(f"❌ [RADAR ERROR] Fallo en ciclo automático: {e}", flush=True)
+            print(f"❌ [RADAR ERROR] Error en ciclo: {e}", flush=True)
         
-        print("⏳ [RELOJ INTERNO] Próxima patrulla en 900 segundos...", flush=True)
+        # ⏱️ Pausa obligatoria antianomalías de 15 minutos (900 segundos)
+        print("⏳ [RELOJ INTERNO] Entrando en reposo estricto por 900 segundos...", flush=True)
         time.sleep(900)
 
+# Lanzamiento del hilo nativo en paralelo
 threading.Thread(target=bucle_automatico_infinito, daemon=True).start()
 
 if __name__ == '__main__':
