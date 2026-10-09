@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 CORREGIDO AL 100%: Host limpio y puro, sin '://' que rompa la red
+        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -61,7 +61,7 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         sender_name = os.getenv("SENDER_NAME", "Enjambre SaaS")
 
         if not smtp_user or not smtp_pass:
-            print("[⚠️] Error Crítico: Faltan las variables SMTP_USER o SMTP_PASS en Render.", flush=True)
+            print("[⚠️] Error Crítico: Faltan las variables SMTP_USER o SMTP_PASS in Render.", flush=True)
             emails_failed += 1
             return
 
@@ -85,18 +85,17 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         """
         msg.attach(MIMEText(html_content, 'html', 'utf-8'))
 
-        # Conexión SSL nativa directa al puerto seguro
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(smtp_user, smtp_pass)
         server.sendmail(smtp_user, email_destino, msg.as_string())
         server.quit()
 
         emails_exito += 1
-        print(f"✅ [TÚNEL SMTP ÉXITO] Correo entregado físicamente en el buzón de: {email_destino}", flush=True)
+        print(f"✅ [TÚNEL SMTP ÉXITO] Correo entregado fisicamente en el buzon de: {email_destino}", flush=True)
 
     except Exception as e:
         emails_failed += 1
-        print(f"❌ [FALLA TOTAL DE SMTP] Error en la conexión directa con DonDominio: {e}", flush=True)
+        print(f"❌ [FALLA TOTAL DE SMTP] Error en la conexion directa con DonDominio: {e}", flush=True)
 
 def bucle_automatico_infinito():
     global busquedas_exitosas, busquedas_fallidas, leads_cazados
@@ -111,7 +110,7 @@ def bucle_automatico_infinito():
             
             email_objetivo = "severianobenitez@hotmail.com"
             
-            print(f"🔍 [RADAR] Iniciando disparo de auditoria legítima hacia: {email_objetivo}", flush=True)
+            print(f"🔍 [RADAR] Iniciando disparo de auditoria legitima hacia: {email_objetivo}", flush=True)
             
             busquedas_exitosas += 1
             leads_cazados += 1
