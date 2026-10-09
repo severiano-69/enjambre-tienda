@@ -68,7 +68,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -87,7 +88,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        response = conn.getresponse()
+        response = conn.getcall = response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -109,7 +110,7 @@ def ejecutar_un_ciclo_cibernetico():
         sector, precio, problema, cod_stripe = random.choice(sectores)
         enlace_stripe = f"https://stripe.com{cod_stripe}"
         
-        # 🚀 EL RADAR AUTOMÁTICO SE RECONECTA AQUÍ: Formatea el dominio de la empresa según la combinación cazada
+        # El radar automático formatea el dominio de la empresa real
         prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
         ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
         
@@ -133,7 +134,6 @@ def inicio_automatico():
     while True:
         print("🚀 [MALLA OPERATIVA 24/7] Escaneando registros...", flush=True)
         ejecutar_un_ciclo_cibernetico()
-        # Pausa de seguridad humana (20 a 30 minutos) entre cada cliente para que no quemen la clave
         espera = random.randint(1200, 1800)
         print(f"⏳ [RELOJ INTERNO] Próxima patrulla en {espera} segundos...", flush=True)
         time.sleep(espera)
