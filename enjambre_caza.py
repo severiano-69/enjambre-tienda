@@ -62,8 +62,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 REPARADO AL 100%: Host puro y limpio
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -82,7 +82,6 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # 🚀 REPARADO AL 100%: Respuesta limpia sin líneas duplicadas rotas
         response = conn.getresponse()
         data = response.read().decode("utf-8")
         
@@ -112,7 +111,6 @@ def bucle_automatico_infinito():
             
             print(f"🔍 [RADAR INTERNO] Ejecutando patrulla automática...", flush=True)
             
-            # Apuntamos a tu correo real para comprobar que la entrega funciona hacia fuera
             email_objetivo = "severianobenitez@hotmail.com"
             
             busquedas_exitosas += 1
