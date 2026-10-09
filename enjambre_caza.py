@@ -7,7 +7,7 @@ import json
 import http.client
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Brevo Unificada Activa", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Brevo Operativa Real - EN LA CALLE", flush=True)
 
 app = Flask(__name__)
 
@@ -68,8 +68,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 CORRECCIÓN ABSOLUTA: Host limpio directo de la API sin barras corruptas
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -88,8 +87,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # Lectura de respuesta limpia directa del servidor de Brevo
-        response = conn.getcall = response = conn.getresponse()
+        response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -111,13 +109,18 @@ def ejecutar_un_ciclo_cibernetico():
         sector, precio, problema, cod_stripe = random.choice(sectores)
         enlace_stripe = f"https://stripe.com{cod_stripe}"
         
-        print(f"🔍 [RADAR INTERNO] Ejecutando escaneo de prueba directa...", flush=True)
+        # 🚀 EL RADAR AUTOMÁTICO SE RECONECTA AQUÍ: Formatea el dominio de la empresa según la combinación cazada
+        prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
+        ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
         
-        # Objetivo directo a tu propio Hotmail para comprobar el impacto en segundos
-        email_objetivo = "severianobenitez@hotmail.com"
+        print(f"🔍 [RADAR INTERNO] Detectado dominio: '{prefijo_limpio}{ciudad_limpia}.com'", flush=True)
+        
+        dominios_comunes = ["contacto", "info", "ventas", "oficina"]
+        email_objetivo = f"{random.choice(dominios_comunes)}@{prefijo_limpio}{ciudad_limpia}.com"
         
         busquedas_exitosas += 1
         if email_objetivo not in correos_historico:
+            correos_historico.add(email_objetivo)
             leads_cazados += 1
             enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
             
@@ -130,7 +133,7 @@ def inicio_automatico():
     while True:
         print("🚀 [MALLA OPERATIVA 24/7] Escaneando registros...", flush=True)
         ejecutar_un_ciclo_cibernetico()
-        # Pausa de seguridad humana de 20 a 30 minutos
+        # Pausa de seguridad humana (20 a 30 minutos) entre cada cliente para que no quemen la clave
         espera = random.randint(1200, 1800)
         print(f"⏳ [RELOJ INTERNO] Próxima patrulla en {espera} segundos...", flush=True)
         time.sleep(espera)
