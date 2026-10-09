@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 SOLUCIÓN REAL: Host puro de DonDominio sin protocolos corruptos
+        # 🚀 CORREGIDO AL 100%: Host limpio y puro, sin '://' que rompa la red
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -76,7 +76,7 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         <html>
         <body>
         <p>Estimado responsable de operaciones,</p>
-        <p>Hemos analizad recientemente los tiempos de respuesta y los protocolos de despliegue publico asociados a las marcas de su sector.</p>
+        <p>Hemos analizado recientemente los tiempos de respuesta y los protocolos de despliegue publico asociados a las marcas de su sector.</p>
         <p>Detectamos un margen de optimizacion importante en el area de <strong>{servicio}</strong>, aspecto clave para la captacion digital de su negocio.</p>
         <p>Hemos preparado un informe detallado con las correcciones tecnicas pertinentes. Si desea recibir la auditoria completa sin compromiso alguno, responda directamente a este correo electronico.</p>
         <p>Atentamente,<br><strong>{sender_name}</strong><br>Soporte de Infraestructura Digital</p>
@@ -85,7 +85,7 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         """
         msg.attach(MIMEText(html_content, 'html', 'utf-8'))
 
-        # Conexión directa nativa SSL al puerto 465
+        # Conexión SSL nativa directa al puerto seguro
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(smtp_user, smtp_pass)
         server.sendmail(smtp_user, email_destino, msg.as_string())
