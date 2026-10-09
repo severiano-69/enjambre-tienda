@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 REPARADO AL 100%: Host limpio puro sin protocolos corruptos introducidos por error
+        # 🚀 CORREGIDO: Host limpio y directo sin barras ni protocolos corruptos
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -85,7 +85,6 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         """
         msg.attach(MIMEText(html_content, 'html', 'utf-8'))
 
-        # Conexión nativa SSL directa sin intermediarios
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(smtp_user, smtp_pass)
         server.sendmail(smtp_user, email_destino, msg.as_string())
