@@ -58,7 +58,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
     global emails_exito, emails_failed
     try:
         api_key = os.getenv("BREVO_API_KEY")
-        sender_email = os.getenv("SENDER_EMAIL", "info@enjambresaas.online")
+        sender_email = os.getenv("SENDER_EMAIL", "oficina@enjambresaas.online")
         sender_name = "Enjambre SaaS"
         
         if not api_key:
@@ -68,8 +68,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
-        conn = http.client.HTTPSConnection("api.brevo.com")
+        conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -88,7 +87,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        response = conn.getcall = response = conn.getresponse()
+        response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -110,36 +109,22 @@ def ejecutar_un_ciclo_cibernetico():
         sector, precio, problema, cod_stripe = random.choice(sectores)
         enlace_stripe = f"https://stripe.com{cod_stripe}"
         
-        # El radar automático formatea el dominio de la empresa real
         prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
         ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
         
-        print(f"🔍 [RADAR INTERNO] Detectado dominio: '{prefijo_limpio}{ciudad_limpia}.com'", flush=True)
+        print(f"🔍 [RADAR INTERNO] Detectado dominio simulado: '{prefijo_limpio}{ciudad_limpia}.com'", flush=True)
         
-        dominios_comunes = ["contacto", "info", "ventas", "oficina"]
-        email_objetivo = f"{random.choice(dominios_comunes)}@{prefijo_limpio}{ciudad_limpia}.com"
+        # 🎯 DIRECCIÓN DE PRUEBA REAL: Cambiado para ver el impacto en tiempo real en tu panel
+        email_objetivo = "severianobenitez@hotmail.com"
         
         busquedas_exitosas += 1
-        if email_objetivo not in correos_historico:
-            correos_historico.add(email_objetivo)
-            leads_cazados += 1
-            enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
-            
+        leads_cazados += 1
+        enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
+        
     except Exception as e:
         busquedas_fallidas += 1
-        print(f"❌ [FALLA INTERNA] Error de rastreo: {e}", flush=True)
-
-def inicio_automatico():
-    time.sleep(10)
-    while True:
-        print("🚀 [MALLA OPERATIVA 24/7] Escaneando registros...", flush=True)
-        ejecutar_un_ciclo_cibernetico()
-        espera = random.randint(1200, 1800)
-        print(f"⏳ [RELOJ INTERNO] Próxima patrulla en {espera} segundos...", flush=True)
-        time.sleep(espera)
+        print(f"❌ [RADAR ERROR] Error en la ejecución del ciclo: {e}", flush=True)
 
 if __name__ == '__main__':
-    threading.Thread(target=inicio_automatico, daemon=True).start()
-    puerto = int(os.environ.get("PORT", 10000))
-    print(f"🌐 Servidor Flask arrancando en puerto {puerto}...", flush=True)
-    app.run(host='0.0.0.0', port=puerto, debug=False, use_reloader=False)
+    port = int(os.getenv("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
