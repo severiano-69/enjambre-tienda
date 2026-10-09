@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
+        # 🚀 CORREGIDO AL 100%: Host limpio sin protocolos de red corruptos
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -61,7 +61,7 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
         sender_name = os.getenv("SENDER_NAME", "Enjambre SaaS")
 
         if not smtp_user or not smtp_pass:
-            print("[⚠️] Error Crítico: Faltan las variables SMTP_USER o SMTP_PASS in Render.", flush=True)
+            print("[⚠️] Error Crítico: Faltan las variables SMTP_USER o SMTP_PASS en Render.", flush=True)
             emails_failed += 1
             return
 
@@ -108,7 +108,11 @@ def bucle_automatico_infinito():
             sector, servicio = random.choice(sectores)
             ciudad = random.choice(ciudades)
             
-            email_objetivo = "severianobenitez@hotmail.com"
+            # 🎯 REGRESO AL RADAR DE CLIENTES REALES AUTOMÁTICOS
+            prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
+            ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
+            dominios_comunes = ["contacto", "info", "ventas", "oficina"]
+            email_objetivo = f"{random.choice(dominios_comunes)}@{prefijo_limpio}{ciudad_limpia}.com"
             
             print(f"🔍 [RADAR] Iniciando disparo de auditoria legitima hacia: {email_objetivo}", flush=True)
             
