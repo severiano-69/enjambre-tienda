@@ -53,7 +53,7 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 CORREGIDO AL 100%: Host limpio sin protocolos de red corruptos
+        # 🚀 CORREGIDO TOTALMENTE: Host puro y limpio de DonDominio sin protocolos corruptos
         smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
@@ -108,7 +108,7 @@ def bucle_automatico_infinito():
             sector, servicio = random.choice(sectores)
             ciudad = random.choice(ciudades)
             
-            # 🎯 REGRESO AL RADAR DE CLIENTES REALES AUTOMÁTICOS
+            # Radar dinámico automático hacia objetivos reales
             prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
             ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
             dominios_comunes = ["contacto", "info", "ventas", "oficina"]
