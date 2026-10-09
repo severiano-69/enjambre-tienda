@@ -53,9 +53,8 @@ def home():
 def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
-        # 🚀 REPARADO Y ALINEADO CON LUPA: Host limpio y sin espacios corruptos
-               smtp_server = "smtp.dondominio.com"
-
+        # 🚀 SOLUCIONADO DEFINITIVO: Servidor e indentación alineados a 8 espacios estrictos
+        smtp_server = "://dondominio.com"
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
         smtp_pass = os.getenv("SMTP_PASS")
@@ -109,7 +108,6 @@ def bucle_automatico_infinito():
             sector, servicio = random.choice(sectores)
             ciudad = random.choice(ciudades)
             
-            # Radar dinámico automático hacia objetivos reales
             prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
             ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
             dominios_comunes = ["contacto", "info", "ventas", "oficina"]
