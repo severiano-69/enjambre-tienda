@@ -14,7 +14,7 @@ app = Flask(__name__)
 # 🎯 BASE DE DATOS DE CLIENTES REALES (Cambia estos correos por los verdaderos de tus objetivos)
 lista_leads_reales = [
     {"email": "severianobenitez@hotmail.com", "sector": "comercio premium", "problema": "fidelizacion de clientes VIP", "cod_stripe": "7sYbJ2ccY3wd0mW3X377O0q", "precio": "147,00 €"},
-    {"email": "info@enjambresaas.online", "sector": "agencia de servicios", "problema": "posicionamiento web y SEO", "cod_stripe": "eVq7sM90M7MtedM9hn77O0o", "precio": "47,00 €"}
+    {"email": "info@enjambresaas.online", "sector": "agencia de servicios", "problema": "posicionamiento web and SEO", "cod_stripe": "eVq7sM90M7MtedM9hn77O0o", "precio": "47,00 €"}
 ]
 
 busquedas_exitosas = 0
@@ -50,7 +50,8 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -69,7 +70,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        response = conn.getcall = response = conn.getcall = response = conn.getresponse()
+        response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -97,7 +98,6 @@ def bucle_automatico_infinito():
                 time.sleep(60)
                 continue
                 
-            # Coger el cliente actual secuencialmente
             lead = lista_leads_reales[indice_actual]
             email_objetivo = lead["email"]
             sector = lead["sector"]
@@ -112,7 +112,6 @@ def bucle_automatico_infinito():
             
             enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
             
-            # Avanzar al siguiente correo de la lista
             indice_actual = (indice_actual + 1) % len(lista_leads_reales)
             
         except Exception as e:
