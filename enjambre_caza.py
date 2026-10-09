@@ -31,7 +31,6 @@ sectores = [
     ("centro de atencion", "199,00 €", "cierre de ventas automatizado por WhatsApp", "fZu4gAfpagiZglU51777O0g")
 ]
 
-correos_historico = set()
 busquedas_exitosas = 0
 busquedas_fallidas = 0
 leads_cazados = 0
@@ -49,11 +48,6 @@ def home():
         "emails_failed": emails_failed
     }), 200
 
-@app.route('/ejecutar')
-def forzar_ciclo():
-    threading.Thread(target=ejecutar_un_ciclo_cibernetico).start()
-    return jsonify({"status": "ciclo_forzado_malla_api"}), 200
-
 def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
     global emails_exito, emails_failed
     try:
@@ -68,7 +62,6 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 REPARADO AL 100%: Host limpio sin protocolos de red corruptos
         conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
@@ -103,28 +96,37 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
         emails_failed += 1
         print(f"❌ [FALLA TOTAL DE RED] Error en conexión pura a {email}: {e}", flush=True)
 
-def ejecutar_un_ciclo_cibernetico():
+def bucle_automatico_infinito():
     global busquedas_exitosas, busquedas_fallidas, leads_cazados
-    try:
-        ciudad = random.choice(ciudades)
-        sector, precio, problema, cod_stripe = random.choice(sectores)
-        enlace_stripe = f"https://stripe.com{cod_stripe}"
+    print("🚀 [MALLA AUTOMÁTICA] Bucle de patrulla en segundo plano iniciado.", flush=True)
+    
+    # Espera inicial de 10 segundos para dejar que Flask arranque bien
+    time.sleep(10)
+    
+    while True:
+        try:
+            ciudad = random.choice(ciudades)
+            sector, precio, problema, cod_stripe = random.choice(sectores)
+            enlace_stripe = f"https://stripe.com{cod_stripe}"
+            
+            print(f"🔍 [RADAR INTERNO] Ejecutando patrulla automática...", flush=True)
+            
+            # Dirección de prueba real para validar en tu panel
+            email_objetivo = "severianobenitez@hotmail.com"
+            
+            busquedas_exitosas += 1
+            leads_cazados += 1
+            enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
+            
+        except Exception as e:
+            busquedas_fallidas += 1
+            print(f"❌ [RADAR ERROR] Fallo en ciclo automático: {e}", flush=True)
         
-        prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
-        ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
-        
-        print(f"🔍 [RADAR INTERNO] Detectado dominio simulado: '{prefijo_limpio}{ciudad_limpia}.com'", flush=True)
-        
-        # 🎯 DIRECCIÓN DE PRUEBA REAL (Tu Hotmail verificado)
-        email_objetivo = "severianobenitez@hotmail.com"
-        
-        busquedas_exitosas += 1
-        leads_cazados += 1
-        enviar_propuesta_api_http(email_objetivo, sector, problema, precio, enlace_stripe)
-        
-    except Exception as e:
-        busquedas_fallidas += 1
-        print(f"❌ [RADAR ERROR] Error en la ejecución del ciclo: {e}", flush=True)
+        # Espera 20 segundos antes del siguiente envío automático
+        time.sleep(20)
+
+# Lanzar el bucle en paralelo antes de encender la web
+threading.Thread(target=bucle_automatico_infinito, daemon=True).start()
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 10000))
