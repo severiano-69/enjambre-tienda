@@ -63,8 +63,8 @@ def enviar_propuesta_api_http(email, sector, servicio):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 BLINDADO Y COMPROBADO: Dirección totalmente limpia sin barras ni protocolos corruptos
-        conn = http.client.HTTPSConnection("://brevo.com")
+        # 🚀 CORREGIDO AL 100%: Servidor limpio y sin barras
+        conn = http.client.HTTPSConnection("api.brevo.com")
         
         headers = {
             "accept": "application/json",
@@ -136,7 +136,7 @@ def bucle_automatico_infinito():
             busquedas_fallidas += 1
             print(f"❌ [RADAR ERROR] Error en el flujo del bucle: {e}", flush=True)
         
-        # ⏱️ Pausa obligatoria antianomalías de 15 minutos (900 segundos)
+        # Pausa obligatoria de 15 minutos (900 segundos)
         print("⏳ [RELOJ INTERNO] Entrando en reposo estricto por 900 segundos...", flush=True)
         time.sleep(900)
 
