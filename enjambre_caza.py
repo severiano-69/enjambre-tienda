@@ -62,7 +62,6 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         print(f"⚡ [CONEXIÓN API BREVO] Enviando propuesta por puerto web seguro a: {email}", flush=True)
 
-        # 🚀 CORREGIDO: Dirección limpia sin protocolos ni barras corruptas
         conn = http.client.HTTPSConnection("://brevo.com")
         
         headers = {
@@ -82,8 +81,7 @@ def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
 
         conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
         
-        # 🚀 CORREGIDO: Captura de respuesta limpia
-        response = conn.getcall = response = conn.getresponse()
+        response = conn.getresponse()
         data = response.read().decode("utf-8")
         
         if response.status == 201:
@@ -113,7 +111,6 @@ def bucle_automatico_infinito():
             prefijo_limpio = sector.lower().replace(" ", "").replace("í", "i").replace("ó", "o")
             ciudad_limpia = ciudad.lower().replace(" ", "").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
             
-            # 🎯 REGRESO AL RADAR REAL DINÁMICO
             dominios_comunes = ["contacto", "info", "ventas", "oficina"]
             email_objetivo = f"{random.choice(dominios_comunes)}@{prefijo_limpio}{ciudad_limpia}.com"
             
