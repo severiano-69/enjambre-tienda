@@ -54,7 +54,8 @@ def enviar_propuesta_smtp_real(email_destino, sector, servicio):
     global emails_exito, emails_failed
     try:
         # 🚀 CORREGIDO TOTALMENTE: Host puro y limpio de DonDominio sin protocolos corruptos
-        smtp_server = "://dondominio.com"
+               smtp_server = "smtp.dondominio.com"
+
         smtp_port = 465  
         smtp_user = os.getenv("SMTP_USER")
         smtp_pass = os.getenv("SMTP_PASS")
