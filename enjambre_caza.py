@@ -4,10 +4,12 @@ import sys
 import random
 import threading
 import json
-import http.client
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from flask import Flask, jsonify
 
-print("🔥 [NÚCLEO ENJAMBRE] Malla API HTTP Pura Definitiva Activa", flush=True)
+print("🔥 [NÚCLEO ENJAMBRE] Motor SMTP-SSL Corporativo de DonDominio Activo", flush=True)
 
 app = Flask(__name__)
 
@@ -52,57 +54,43 @@ def home():
 @app.route('/ejecutar')
 def forzar_ciclo():
     threading.Thread(target=ejecutar_un_ciclo_cibernetico).start()
-    return jsonify({"status": "ciclo_forzado_malla_api"}), 200
+    return jsonify({"status": "ciclo_forzado_dondominio_ssl"}), 200
 
 def enviar_propuesta_api_http(email, sector, problema, precio, enlace):
     global emails_exito, emails_failed
     try:
-        api_key = os.getenv("BREVO_API_KEY")
-        sender_email = "oficina@enjambresaas.online"
+        # 🚀 CREDENCIALES DE TU BUZÓN REAL EN DONDOMINIO
+        smtp_server = "smtp.dondominio.com"
+        smtp_port = 465  # Cambiamos a puerto SSL puro insaltable
+        
+        sender_email = "info@enjambresaas.online"
         sender_name = "Enjambre SaaS"
         
-        if not api_key:
-            print("[⚠️] Error Crítico: Falta BREVO_API_KEY en Render.", flush=True)
-            emails_failed += 1
-            return
+        # Leemos la contraseña guardada de forma segura en las variables de Render
+        smtp_password = os.getenv("BREVO_API_KEY") # Usaremos esta misma casilla en Render para guardar tu contraseña de DonDominio
 
-        print(f"⚡ [CONEXIÓN API] Enviando propuesta por puerto web a: {email}", flush=True)
+        print(f"⚡ [TÚNEL DONDOMINIO SSL] Conectando canal seguro para: {email}", flush=True)
 
-        # 🚀 HOST COMPLETAMENTE SANEADO: Dirección limpia de red para la conexión HTTPS
-        conn = http.client.HTTPSConnection("api.brevo.com")
-        
-        headers = {
-            "accept": "application/json",
-            "content-type": "application/json",
-            "api-key": api_key
-        }
-        
+        msg = MIMEMultipart()
+        msg['From'] = f"{sender_name} <{sender_email}>"
+        msg['To'] = email
+        msg['Subject'] = f"Solucion urgente para {problema} en tu {sector}"
+
         html_content = f"<p>Hola,</p><p>Detectamos que has registrado recientemente la infraestructura digital de tu marca. Analizando los protocolos estandar de despliegue, prevemos riesgos criticos con <strong>{problema}</strong>.</p><p>Implementamos una Malla Blindada con IA para asegurar tu entorno por <strong>{precio} al mes (pago adelantado)</strong>.</p><p>Puedes activar tu protección y revisar los entregables de forma segura en nuestra pasarela aquí:</p><p><a href='{enlace}' style='background:#6772e5;color:#fff;padding:12px 20px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:bold;'>Activar Malla Blindada (Stripe Checkout)</a></p><p><em>Nota: El soporte 24/7 y la infraestructura en la nube inician tras completarse el pago seguro. Sin versiones de prueba.</em></p>"
-        
-        payload = {
-            "sender": {"name": sender_name, "email": sender_email},
-            "to": [{"email": email}],
-            "subject": f"Solucion urgente para {problema} en tu {sector}",
-            "htmlContent": html_content
-        }
+        msg.attach(MIMEText(html_content, 'html'))
 
-        conn.request("POST", "/v3/smtp/email", json.dumps(payload), headers)
+        # 🚀 CONEXIÓN SSL DIRECTA
+        server = smtplib.SMTP_SSL(smtp_server, smtp_port, timeout=15)
+        server.login(sender_email, smtp_password)
+        server.sendmail(sender_email, email, msg.as_string())
+        server.quit()
+
+        emails_exito += 1
+        print(f"✅ [ÉXITO TOTAL] ¡Correo inyectado en internet desde DonDominio hacia: {email}", flush=True)
         
-        # 🚀 LÍNEA DE RESPUESTA SANEADA DEFINITIVAMENTE: Sin variables duplicadas ni texto basura
-        response = conn.getcall = response = conn.getresponse()
-        data = response.read().decode("utf-8")
-        
-        if response.status == 201:
-            emails_exito += 1
-            print(f"✅ [API ÉXITO] ¡Túnel abierto en Brevo! Correo entregado a: {email}", flush=True)
-        else:
-            emails_failed += 1
-            print(f"❌ [API RECHAZO] Código {response.status} de la central de Brevo: {data}", flush=True)
-        conn.close()
-            
     except Exception as e:
         emails_failed += 1
-        print(f"❌ [FALLA TOTAL DE RED] Error en conexión pura a {email}: {e}", flush=True)
+        print(f"❌ [FALLA DONDOMINIO] Error de envío a {email}: {e}", flush=True)
 
 def ejecutar_un_ciclo_cibernetico():
     global busquedas_exitosas, busquedas_fallidas, leads_cazados
@@ -111,9 +99,9 @@ def ejecutar_un_ciclo_cibernetico():
         sector, precio, problema, cod_stripe = random.choice(sectores)
         enlace_stripe = f"https://stripe.com{cod_stripe}"
         
-        print(f"🔍 [RADAR INTERNO] Ejecutando escaneo de prueba directa...", flush=True)
+        print(f"🔍 [RADAR INTERNO] Ejecutando escaneo operativo...", flush=True)
         
-        # 🚀 FORZAMOS TU PROPIO CORREO REAL PARA TENER LA CERTEZA ABSOLUTA EN TU MÓVIL
+        # 🚀 MODIFICACIÓN IMPORTANTE: Dejamos el objetivo real en tu propio correo para ver el primer impacto
         email_objetivo = "severianobenitez@hotmail.com"
         
         busquedas_exitosas += 1
@@ -130,7 +118,7 @@ def inicio_automatico():
     while True:
         print("🚀 [MALLA OPERATIVA 24/7] Escaneando registros...", flush=True)
         ejecutar_un_ciclo_cibernetico()
-        # Pausa humana de 20 a 30 minutos
+        # Pausa de seguridad humana de 20 a 30 minutos
         espera = random.randint(1200, 1800)
         print(f"⏳ [RELOJ INTERNO] Próxima patrulla en {espera} segundos...", flush=True)
         time.sleep(espera)
